@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacktivist Uprising</title>
+  <style>
+    body {
+      font-family: "Courier New", Courier, monospace;
+      background-color: #0a0a0a;
+      color: #00ff00;
+      text-align: center;
+      padding: 20px;
+    }
+    .game-container {
+      margin: 50px auto;
+      max-width: 600px;
+      padding: 20px;
+      border: 2px solid #00ff00;
+      border-radius: 10px;
+      background-color: #151515;
+    }
+    .input-container {
+      margin-top: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 70%;
+      font-size: 16px;
+      background-color: #000;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00ff00;
+      color: #0a0a0a;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005500;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .timer, .score {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+    .hint-container {
+      margin-top: 20px;
+    }
+    .reset-button {
+      margin-top: 20px;
+      background-color: #ff0000;
+    }
+    .reset-button:hover {
+      background-color: #b20000;
+    }
+  </style>
+</head>
+<body>
+  <h1>Hacktivist Uprising</h1>
+  <div class="game-container">
+    <p id="level">Level: 1</p>
+    <p id="challenge">Solve this: 1100100 (binary)</p>
+    <div class="timer">Time left: <span id="timer">30</span> seconds</div>
+    <div class="score">Score: <span id="score">0</span></div>
+    <div class="input-container">
+      <input type="text" id="user-input" placeholder="Enter your answer">
+      <button onclick="checkAnswer()">Submit</button>
+    </div>
+    <div class="hint-container">
+      <button onclick="useHint()">Use Hint</button> <span id="hints-left">Hints Left: 3</span>
+    </div>
+    <p class="message" id="message"></p>
+    <button class="reset-button" onclick="resetGame()">Reset Game</button>
+  </div>
+  <audio id="correct-sound" src="correct.mp3"></audio>
+  <audio id="wrong-sound" src="wrong.mp3"></audio>
+
+  <script>
+    let level = 1;
+    let score = 0;
+    let timeLeft = 30;
+    let timer;
+    let hintsLeft = 3;
+
+    const challenges = [
+      { question: "1100100 (binary)", answer: "100", hint: "Convert binary to decimal." },
+      { question: "48656c6c6f (hexadecimal)", answer: "Hello", hint: "Hexadecimal to ASCII." },
+      { question: "Unscramble: nevrieshe", answer: "inverses", hint: "Unscramble the letters." },
+      { question: "Solve for X: 5X - 15 = 20", answer: "7", hint: "Solve the equation for X." },
+      { question: "Decrypt: Gur cnff jnf cnexrq (ROT13)", answer: "The pass was parked", hint: "Use ROT13 to decrypt." },
+      { question: "SGFjayB0aGUgc3lzdGVt (Base64)", answer: "Hack the system", hint: "Decode from Base64." },
+      { question: "Reverse (Shift 'zab' by -1)", answer: "azy", hint: "Multiple operations: Reverse and shift." },
+      { question: "What comes next: 2, 6, 12, 20, 30?", answer: "42", hint: "Find the next number in the pattern." },
+      { question: "Solve: 15 + 23 * 2", answer: "61", hint: "Follow the order of operations." },
+      { question: "Find the sum of the ASCII values for 'abc'", answer: "294", hint: "Add ASCII values of each character." }
+    ];
+
+    function startTimer() {
+      timeLeft = 30;
+      document.getElementById("timer").textContent = timeLeft;
+      clearInterval(timer);
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("timer").textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          document.getElementById("message").textContent = "Time's up! You failed the level.";
+          document.querySelector(".input-container").style.display = "none";
+        }
+      }, 1000);
+    }
+
+    function checkAnswer() {
+      const input = document.getElementById("user-input").value.trim();
+      const currentChallenge = challenges[level - 1];
+
+      if (input === currentChallenge.answer) {
+        score += 10;
+        level++;
+        document.getElementById("correct-sound").play();
+
+        if (level > challenges.length) {
+          clearInterval(timer);
+          document.getElementById("message").textContent = "Congratulations! You completed all levels!";
+          document.getElementById("level").textContent = "Game Over";
+          document.getElementById("challenge").textContent = "";
+          document.querySelector(".input-container").style.display = "none";
+          document.querySelector(".hint-container").style.display = "none";
+        } else {
+          document.getElementById("message").textContent = "Correct! Moving to the next level.";
+          document.getElementById("level").textContent = "Level: " + level;
+          document.getElementById("challenge").textContent = "Solve this: " + challenges[level - 1].question;
+          document.getElementById("user-input").value = "";
+          document.getElementById("score").textContent = score;
+          startTimer();
+        }
+      } else {
+        document.getElementById("wrong-sound").play();
+        document.getElementById("message").textContent = "Wrong answer! Try again.";
+      }
+    }
+
+    function useHint() {
+      if (hintsLeft > 0) {
+        const currentChallenge = challenges[level - 1];
+        document.getElementById("message").textContent = "Hint: " + currentChallenge.hint;
+        hintsLeft--;
+        document.getElementById("hints-left").textContent = "Hints Left: " + hintsLeft;
+      } else {
+        document.getElementById("message").textContent = "No hints left! Use your mind.";
+      }
+    }
+
+    function resetGame() {
+      level = 1;
+      score = 0;
+      hintsLeft = 3;
+      timeLeft = 30;
+      document.getElementById("level").textContent = "Level: " + level;
+      document.getElementById("score").textContent = score;
+      document.getElementById("hints-left").textContent = "Hints Left: " + hintsLeft;
+      document.getElementById("challenge").textContent = "Solve this: " + challenges[level - 1].question;
+      document.querySelector(".input-container").style.display = "block";
+      document.querySelector(".hint-container").style.display = "block";
+      startTimer();
+      document.getElementById("message").textContent = "";
+    }
+
+    window.onload = resetGame;
+  </script>
+</body>
+</html>
+

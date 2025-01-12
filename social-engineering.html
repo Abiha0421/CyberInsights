@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Engineering Simulator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #161b22;
+            color: #58a6ff;
+            padding: 1rem 2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #58a6ff;
+            text-align: center;
+        }
+
+        .scenario {
+            margin-bottom: 2rem;
+        }
+
+        .question {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .options button {
+            padding: 0.5rem 1rem;
+            background-color: #58a6ff;
+            color: #0d1117;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .options button:hover {
+            background-color: #1f6feb;
+        }
+
+        .feedback {
+            margin-top: 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #161b22;
+            color: #8b949e;
+            margin-top: 2rem;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Social Engineering Simulator</h1>
+    </header>
+
+    <div class="container">
+        <div class="scenario" id="scenario">
+            <p class="question" id="question">You receive an email from your bank asking you to click on a link to verify your account details. What do you do?</p>
+            <div class="options">
+                <button onclick="chooseOption(1)">Click the link and enter your details</button>
+                <button onclick="chooseOption(2)">Delete the email immediately</button>
+                <button onclick="chooseOption(3)">Contact the bank directly to confirm</button>
+                <button onclick="chooseOption(4)">Ignore the email</button>
+            </div>
+            <p class="feedback" id="feedback"></p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cyber Insights. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const scenarios = [
+            {
+                question: "You receive an email from your bank asking you to click on a link to verify your account details. What do you do?",
+                options: [
+                    "Click the link and enter your details",
+                    "Delete the email immediately",
+                    "Contact the bank directly to confirm",
+                    "Ignore the email"
+                ],
+                feedback: [
+                    "Incorrect. Clicking on the link might lead to a phishing site.",
+                    "Partially correct. Deleting the email is a safe choice, but there are better actions.",
+                    "Correct! Contacting the bank directly is the safest approach.",
+                    "Incorrect. Ignoring the email leaves you vulnerable to potential follow-ups."
+                ]
+            },
+            {
+                question: "A colleague asks for your password to fix a technical issue. What do you do?",
+                options: [
+                    "Share the password since they need it",
+                    "Politely refuse and report the incident",
+                    "Change your password after sharing it",
+                    "Ignore the request"
+                ],
+                feedback: [
+                    "Incorrect. Never share your password with anyone.",
+                    "Correct! Refusing and reporting is the best course of action.",
+                    "Incorrect. Changing the password later doesn’t mitigate the risk.",
+                    "Partially correct. Ignoring doesn’t address the potential threat." 
+                ]
+            },
+            {
+                question: "You receive a call from someone claiming to be IT support, asking for your credentials. What do you do?",
+                options: [
+                    "Provide the credentials to fix the issue",
+                    "Verify their identity through official channels",
+                    "Ignore the call",
+                    "Request a follow-up email"
+                ],
+                feedback: [
+                    "Incorrect. Providing credentials opens the door to threats.",
+                    "Correct! Verifying their identity is the safest move.",
+                    "Partially correct. Ignoring doesn’t address the potential threat.",
+                    "Incorrect. An email request can also be a phishing attempt."
+                ]
+            },
+            {
+                question: "You notice a suspicious USB drive in the office. What do you do?",
+                options: [
+                    "Plug it into your computer to check its contents",
+                    "Inform the IT department immediately",
+                    "Leave it where it is",
+                    "Take it home to examine later"
+                ],
+                feedback: [
+                    "Incorrect. Plugging it in can expose your system to malware.",
+                    "Correct! Informing IT ensures proper handling.",
+                    "Incorrect. Leaving it unattended might pose a risk.",
+                    "Incorrect. Taking it home can spread the potential threat."
+                ]
+            },
+            {
+                question: "A friend sends you a link to a funny video, but it looks suspicious. What do you do?",
+                options: [
+                    "Click the link to check it out",
+                    "Ask your friend to verify the link",
+                    "Ignore the message",
+                    "Scan the link with a security tool"
+                ],
+                feedback: [
+                    "Incorrect. Clicking on suspicious links is risky.",
+                    "Partially correct. Verification is good, but more steps can be taken.",
+                    "Partially correct. Ignoring doesn’t mitigate future risks.",
+                    "Correct! Scanning the link ensures its safety."
+                ]
+            }
+        ];
+
+        let currentScenario = 0;
+
+        function loadScenario() {
+            const scenario = scenarios[currentScenario];
+            document.getElementById("question").textContent = scenario.question;
+
+            const optionsContainer = document.querySelector(".options");
+            optionsContainer.innerHTML = "";
+
+            scenario.options.forEach((option, index) => {
+                const button = document.createElement("button");
+                button.textContent = option;
+                button.onclick = () => chooseOption(index + 1);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function chooseOption(option) {
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = scenarios[currentScenario].feedback[option - 1];
+
+            if (option === 3 && currentScenario < scenarios.length - 1) {
+                setTimeout(() => {
+                    currentScenario++;
+                    loadScenario();
+                    feedback.textContent = "";
+                }, 2000);
+            }
+        }
+
+        window.onload = loadScenario;
+    </script>
+</body>
+</html>
+

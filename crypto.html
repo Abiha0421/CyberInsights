@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptographic Challenges</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            background-color: #161b22;
+            color: #58a6ff;
+            padding: 1rem 2rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .question {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .answer-input {
+            margin-bottom: 1rem;
+        }
+
+        .answer-input input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            background-color: #0d1117;
+            color: #c9d1d9;
+        }
+
+        .answer-input button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #58a6ff;
+            color: #0d1117;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .answer-input button:hover {
+            background-color: #1f6feb;
+        }
+
+        .feedback {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background: #161b22;
+            color: #8b949e;
+            margin-top: 2rem;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cryptographic Challenges</h1>
+    </header>
+
+    <div class="container">
+        <p class="question" id="question">Decode this Base64 string: <code>aGVsbG8gd29ybGQ=</code></p>
+        <div class="answer-input">
+            <input type="text" id="answer" placeholder="Enter your answer">
+            <button onclick="checkAnswer()">Submit</button>
+        </div>
+        <p class="feedback" id="feedback"></p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Cyber Insights. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const challenges = [
+            {
+                question: "Decode this Base64 string: <code>aGVsbG8gd29ybGQ=</code>",
+                answer: "hello world"
+            },
+            {
+                question: "Decrypt this Caesar cipher (shift 3): <code>khoor zruog</code>",
+                answer: "hello world"
+            },
+            {
+                question: "Identify the hashing algorithm for this hash: <code>5d41402abc4b2a76b9719d911017c592</code>",
+                answer: "md5"
+            },
+            {
+                question: "Decrypt this keyword cipher (keyword: 'SECRET'): <code>RIJVS UYVJN</code>",
+                answer: "hello world"
+            },
+            {
+                question: "Reverse this SHA-256 hash manually (for the word 'cyber'): <code>59ba5eeba3e7078c08d7c0df7a65b3c57ed52b06c1d06a791c1e15b63ee0e766</code>",
+                answer: "cyber"
+            },
+            {
+                question: "Decode this hexadecimal string: <code>48656c6c6f20576f726c64</code>",
+                answer: "hello world"
+            },
+            {
+                question: "Find the plaintext from this ROT13 encoded string: <code>uryyb jbeyq</code>",
+                answer: "hello world"
+            },
+            {
+                question: "Decrypt this XOR encoded string (key=3): <code>khoor#zruog</code>",
+                answer: "hello world"
+            },
+            {
+                question: "Unscramble this string encoded in a substitution cipher: <code>grfg</code> (Hint: Reverse substitution for 'test').",
+                answer: "test"
+            },
+            {
+                question: "Decode this string using Base58: <code>StV1DL6CwTryKyV</code>",
+                answer: "hello world"
+            }
+        ];
+
+        let currentChallenge = 0;
+
+        function loadChallenge() {
+            const challenge = challenges[currentChallenge];
+            document.getElementById("question").innerHTML = challenge.question;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").textContent = "";
+        }
+
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            const correctAnswer = challenges[currentChallenge].answer.toLowerCase();
+
+            if (userAnswer === correctAnswer) {
+                document.getElementById("feedback").textContent = "Correct! Well done.";
+                document.getElementById("feedback").style.color = "green";
+
+                setTimeout(() => {
+                    if (currentChallenge < challenges.length - 1) {
+                        currentChallenge++;
+                        loadChallenge();
+                    } else {
+                        document.getElementById("question").textContent = "Congratulations! You've completed all challenges.";
+                        document.querySelector(".answer-input").style.display = "none";
+                    }
+                }, 2000);
+            } else {
+                document.getElementById("feedback").textContent = "Incorrect. Try again.";
+                document.getElementById("feedback").style.color = "red";
+            }
+        }
+
+        window.onload = loadChallenge;
+    </script>
+</body>
+</html>
