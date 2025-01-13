@@ -139,34 +139,35 @@
         ];
 
         let rules = {};
+function loadTrafficData() {
+    const tableBody = document.getElementById("traffic-table");
+    trafficData.forEach((traffic, index) => {
+        const row = document.createElement("tr");
 
-        function loadTrafficData() {
-            const tableBody = document.getElementById("traffic-table");
-            trafficData.forEach((traffic, index) => {
-                const row = document.createElement("tr");
+        const typeCell = document.createElement("td");
+        typeCell.textContent = traffic.type;
+        row.appendChild(typeCell);
 
-                const typeCell = document.createElement("td");
-                typeCell.textContent = traffic.type;
-                row.appendChild(typeCell);
+        const actionCell = document.createElement("td");
+        const select = document.createElement("select");
+        select.dataset.index = index;
+        select.innerHTML = `
+            <option value="allow">Allow</option>
+            <option value="block">Block</option>
+        `;
+        select.value = traffic.allowed ? "allow" : "block"; // Set default
+        rules[index] = select.value; // Initialize rules
+        select.addEventListener("change", (e) => {
+            const index = e.target.dataset.index;
+            rules[index] = e.target.value;
+        });
+        actionCell.appendChild(select);
+        row.appendChild(actionCell);
 
-                const actionCell = document.createElement("td");
-                const select = document.createElement("select");
-                select.dataset.index = index;
-                select.innerHTML = `
-                    <option value="allow">Allow</option>
-                    <option value="block">Block</option>
-                `;
-                select.addEventListener("change", (e) => {
-                    const index = e.target.dataset.index;
-                    rules[index] = e.target.value;
-                });
-                actionCell.appendChild(select);
-                row.appendChild(actionCell);
+        tableBody.appendChild(row);
+    });
+}
 
-                tableBody.appendChild(row);
-                rules[index] = "block"; // Default to block for all rows
-            });
-        }
 
        function applyRules() {
     let success = true;
