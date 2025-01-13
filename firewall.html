@@ -168,26 +168,29 @@
             });
         }
 
-        function applyRules() {
-            let success = true;
+       function applyRules() {
+    let success = true;
 
-            trafficData.forEach((traffic, index) => {
-                const action = rules[index];
-                console.log(`Traffic: ${traffic.type}, Allowed: ${traffic.allowed}, Player Action: ${action}`);
-                if ((traffic.allowed && action !== "allow") || (!traffic.allowed && action !== "block")) {
-                    success = false;
-                }
-            });
+    // Iterate through traffic data and compare rules
+    trafficData.forEach((traffic, index) => {
+        const action = rules[index] || "block"; // Default to "block" if not selected
+        console.log(`Traffic: ${traffic.type}, Allowed: ${traffic.allowed}, Player Action: ${action}`);
 
-            const feedback = document.getElementById("feedback");
-            if (success) {
-                feedback.textContent = "Success! Your firewall rules are correctly configured.";
-                feedback.style.color = "green";
-            } else {
-                feedback.textContent = "Incorrect rules! Review your configurations and try again.";
-                feedback.style.color = "red";
-            }
+        if ((traffic.allowed && action !== "allow") || (!traffic.allowed && action !== "block")) {
+            success = false;
         }
+    });
+
+    const feedback = document.getElementById("feedback");
+    if (success) {
+        feedback.textContent = "Success! Your firewall rules are correctly configured.";
+        feedback.style.color = "green";
+    } else {
+        feedback.textContent = "Incorrect rules! Review your configurations and try again.";
+        feedback.style.color = "red";
+    }
+}
+
 
         window.onload = loadTrafficData;
     </script>
