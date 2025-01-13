@@ -56,27 +56,22 @@
             background-size: cover;
         }
 
-        .block:hover {
-            transform: scale(1.1);
-        }
+        .block-type-1 { background-color: #FF5733; }
+        .block-type-2 { background-color: #33FF57; }
+        .block-type-3 { background-color: #3357FF; }
+        .block-type-4 { background-color: #FF33A6; }
+        .block-type-5 { background-color: #FFDB33; }
 
         #scoreboard {
             text-align: center;
             color: #fff;
         }
-
-        /* Block images */
-        .block-type-1 { background-image: url('https://path_to_image_1.png'); }
-        .block-type-2 { background-image: url('https://path_to_image_2.png'); }
-        .block-type-3 { background-image: url('https://path_to_image_3.png'); }
-        .block-type-4 { background-image: url('https://path_to_image_4.png'); }
-        .block-type-5 { background-image: url('https://path_to_image_5.png'); }
     </style>
 </head>
 <body>
     <div id="game-container">
         <!-- Game Logo -->
-        <img id="logo" src="https://path_to_logo_image.png" alt="Cyber Crush Logo">
+        <img id="logo" src="https://via.placeholder.com/300x150.png?text=Cyber+Crush" alt="Cyber Crush Logo">
         
         <div id="game-board"></div>
         
@@ -87,12 +82,11 @@
     </div>
 
     <script>
-        const baseSize = 8;
+        const baseSize = 8;  // Base grid size
         let gridSize = baseSize;
         let level = 1;
         let score = 0;
         let blocks = [];
-        let selectedBlock = null;
         const gameBoard = document.getElementById('game-board');
         const scoreElement = document.getElementById('score');
         const levelElement = document.getElementById('level');
@@ -120,6 +114,8 @@
         function getRandomInt(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
+
+        let selectedBlock = null;
 
         function handleBlockClick(event) {
             const clickedBlock = event.target;
@@ -236,11 +232,8 @@
             }
         }
 
+        // Start the game
         generateBoard();
     </script>
 </body>
 </html>
-
-
-
-
