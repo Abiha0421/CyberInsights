@@ -14,39 +14,28 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            overflow: hidden;
         }
 
         #game-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-            max-width: 600px;
         }
 
         #logo {
-            width: 80%;
-            max-width: 300px;
-            margin-bottom: 20px;
+            width: 300px; /* Adjust size of the logo */
+            margin-bottom: 20px; /* Space between logo and game board */
         }
 
         #game-board {
             display: grid;
             gap: 5px;
             margin-bottom: 20px;
-            width: 100%;
-            height: 100%;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            grid-template-rows: repeat(auto-fill, minmax(60px, 1fr));
-            justify-items: center;
         }
 
         .block {
-            width: 100%;
-            height: 100%;
-            min-width: 60px;
-            min-height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 8px;
             display: flex;
             justify-content: center;
@@ -56,22 +45,26 @@
             background-size: cover;
         }
 
-        .block-type-1 { background-color: #FF5733; }
-        .block-type-2 { background-color: #33FF57; }
-        .block-type-3 { background-color: #3357FF; }
-        .block-type-4 { background-color: #FF33A6; }
-        .block-type-5 { background-color: #FFDB33; }
+        .block:hover {
+            transform: scale(1.1);
+        }
 
         #scoreboard {
             text-align: center;
-            color: #fff;
         }
+
+        /* Block images */
+        .block-type-1 { background-image: url('https://path_to_image_1.png'); }
+        .block-type-2 { background-image: url('https://path_to_image_2.png'); }
+        .block-type-3 { background-image: url('https://path_to_image_3.png'); }
+        .block-type-4 { background-image: url('https://path_to_image_4.png'); }
+        .block-type-5 { background-image: url('https://path_to_image_5.png'); }
     </style>
 </head>
 <body>
     <div id="game-container">
         <!-- Game Logo -->
-        <img id="logo" src="https://via.placeholder.com/300x150.png?text=Cyber+Crush" alt="Cyber Crush Logo">
+        <img id="logo" src="https://path_to_logo_image.png" alt="Cyber Crush Logo">
         
         <div id="game-board"></div>
         
@@ -87,16 +80,16 @@
         let level = 1;
         let score = 0;
         let blocks = [];
+        let selectedBlock = null;
         const gameBoard = document.getElementById('game-board');
         const scoreElement = document.getElementById('score');
         const levelElement = document.getElementById('level');
-        let selectedBlock = null;
 
         function generateBoard() {
             gameBoard.innerHTML = '';
             blocks = [];
-            gameBoard.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-            gameBoard.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+            gameBoard.style.gridTemplateColumns = `repeat(${gridSize}, 50px)`;
+            gameBoard.style.gridTemplateRows = `repeat(${gridSize}, 50px)`;
 
             for (let i = 0; i < gridSize; i++) {
                 for (let j = 0; j < gridSize; j++) {
@@ -134,8 +127,10 @@
         function swapBlocks(block1, block2) {
             const tempX = block1.getAttribute('data-x');
             const tempY = block1.getAttribute('data-y');
+
             block1.setAttribute('data-x', block2.getAttribute('data-x'));
             block1.setAttribute('data-y', block2.getAttribute('data-y'));
+
             block2.setAttribute('data-x', tempX);
             block2.setAttribute('data-y', tempY);
 
@@ -143,14 +138,12 @@
             block1.className = block2.className;
             block2.className = tempClass;
 
-            setTimeout(() => {
-                checkMatches();
-            }, 200); // Wait for the visual swap to complete
+            checkMatches();
         }
 
         function checkMatches() {
-            let matchedBlocks = [];
-
+            const matchedBlocks = [];
+            
             for (let i = 0; i < gridSize; i++) {
                 for (let j = 0; j < gridSize - 2; j++) {
                     const currentBlock = getBlock(i, j);
@@ -178,10 +171,8 @@
             }
 
             if (matchedBlocks.length > 0) {
-                matchedBlocks.forEach(block => {
-                    block.remove();
-                    score += 10;
-                });
+                matchedBlocks.forEach(block => block.remove());
+                score += 10;
                 scoreElement.textContent = `Score: ${score}`;
                 updateBoard();
                 checkForLevelUp();
@@ -233,9 +224,9 @@
             }
         }
 
-        // Start the game
         generateBoard();
     </script>
 </body>
 </html>
+
 
