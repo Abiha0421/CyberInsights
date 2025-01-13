@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Crush</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #game-board {
+            display: grid;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .block {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .block:hover {
+            transform: scale(1.1);
+        }
+
+        .block-type-1 {
+            background-color: #0d87e1;
+        }
+
+        .block-type-2 {
+            background-color: #9b29b9;
+        }
+
+        .block-type-3 {
+            background-color: #8ac200;
+        }
+
+        .block-type-4 {
+            background-color: #ff4136;
+        }
+
+        .block-type-5 {
+            background-color: #fdca3e;
+        }
+
+        #scoreboard {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-board"></div>
+        <div id="scoreboard">
+            <p id="score">Score: 0</p>
+            <p id="level">Level: 1</p>
+        </div>
+    </div>
+
+    <script>
+        const baseSize = 8;  // Default grid size (will scale with level)
+        let gridSize = baseSize;
+        let level = 1;
+        let score = 0;
+        let blocks = [];
+        let selectedBlock = null;
+        const gameBoard = document.getElementById('game-board');
+        const scoreElement = document.getElementById('score');
+        const levelElement = document.getElementById('level');
+
+        // Generate the game board and reset score
+        function generateBoard() {
+            gameBoard.innerHTML = '';  // Clear the board
+            blocks = [];
+            gameBoard.style.gridTemplateColumns = `repeat(${gridSize}, 50px)`;
+            gameBoard.style.gridTemplateRows = `repeat(${gridSize}, 50px)`;
+
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize; j++) {
+                    const block = document.createElement('div');
+                    block.classList.add('block');
+                    block.classList.add(`block-type-${getRandomInt(1, 5)}`);
+                    block.setAttribute('data-x', i);
+                    block.setAttribute('data-y', j);
+                    block.addEventListener('click', handleBlockClick);
+                    gameBoard.appendChild(block);
+                    blocks.push(block);
+                }
+            }
+        }
+
+        // Get a random number between min and max
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Handle block click (for swapping)
+        function handleBlockClick(event) {
+            const clickedBlock = event.target;
+
+            if (!selectedBlock) {
+                selectedBlock = clickedBlock;
+                selectedBlock.style.transform = 'scale(1.1)';
+            } else {
+                if (selectedBlock !== clickedBlock) {
+                    swapBlocks(selectedBlock, clickedBlock);
+                }
+                selectedBlock.style.transform = 'scale(1)';
+                selectedBlock = null;
+            }
+        }
+
+        // Swap two blocks
+        function swapBlocks(block1, block2) {
+            const tempX = block1.getAttribute('data-x');
+            const tempY = block1.getAttribute('data-y');
+
+            block1.setAttribute('data-x', block2.getAttribute('data-x'));
+            block1.setAttribute('data-y', block2.getAttribute('data-y'));
+
+            block2.setAttribute('data-x', tempX);
+            block2.setAttribute('data-y', tempY);
+
+            // Swap block types
+            const tempClass = block1.className;
+            block1.className = block2.className;
+            block2.className = tempClass;
+
+            checkMatches();
+        }
+
+        // Check for matches
+        function checkMatches() {
+            const matchedBlocks = [];
+            const blockTypes = ['block-type-1', 'block-type-2', 'block-type-3', 'block-type-4', 'block-type-5'];
+
+            // Check horizontal matches
+            for (let i = 0; i < gridSize; i++) {
+                for (let j = 0; j < gridSize - 2; j++) {
+                    const currentBlock = getBlock(i, j);
+                    const nextBlock = getBlock(i, j + 1);
+                    const nextNextBlock = getBlock(i, j + 2);
+                    if (currentBlock && nextBlock && nextNextBlock &&
+                        currentBlock.classList.contains(nextBlock.classList[1]) &&
+                        nextBlock.classList.contains(nextNextBlock.classList[1])) {
+                        matchedBlocks.push(currentBlock, nextBlock, nextNextBlock);
+                    }
+                }
+            }
+
+            // Check vertical matches
+            for (let j = 0; j < gridSize; j++) {
+                for (let i = 0; i < gridSize - 2; i++) {
+                    const currentBlock = getBlock(i, j);
+                    const nextBlock = getBlock(i + 1, j);
+                    const nextNextBlock = getBlock(i + 2, j);
+                    if (currentBlock && nextBlock && nextNextBlock &&
+                        currentBlock.classList.contains(nextBlock.classList[1]) &&
+                        nextBlock.classList.contains(nextNextBlock.classList[1])) {
+                        matchedBlocks.push(currentBlock, nextBlock, nextNextBlock);
+                    }
+                }
+            }
+
+            // Remove matched blocks
+            if (matchedBlocks.length > 0) {
+                matchedBlocks.forEach(block => block.remove());
+                score += 10;
+                scoreElement.textContent = `Score: ${score}`;
+                checkForLevelUp();
+            }
+        }
+
+        // Get block by coordinates
+        function getBlock(x, y) {
+            return blocks.find(block => block.getAttribute('data-x') == x && block.getAttribute('data-y') == y);
+        }
+
+        // Check if the player leveled up
+        function checkForLevelUp() {
+            if (score >= level * 100) {
+                level++;
+                levelElement.textContent = `Level: ${level}`;
+                gridSize = baseSize + level;
+                generateBoard();
+            }
+        }
+
+        // Start the game
+        generateBoard();
+    </script>
+</body>
+</html>
