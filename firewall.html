@@ -130,7 +130,7 @@
 
     <script>
         const trafficData = [
-            { type: "HTTP (Port 80)", allowed: true },
+            { type: "HTTP (Port 80)", allowed: false },
             { type: "HTTPS (Port 443)", allowed: true },
             { type: "SSH (Port 22)", allowed: true },
             { type: "FTP (Port 21)", allowed: false },
@@ -164,6 +164,7 @@
                 row.appendChild(actionCell);
 
                 tableBody.appendChild(row);
+                rules[index] = "block"; // Default to block for all rows
             });
         }
 
@@ -172,6 +173,7 @@
 
             trafficData.forEach((traffic, index) => {
                 const action = rules[index];
+                console.log(`Traffic: ${traffic.type}, Allowed: ${traffic.allowed}, Player Action: ${action}`);
                 if ((traffic.allowed && action !== "allow") || (!traffic.allowed && action !== "block")) {
                     success = false;
                 }
@@ -191,3 +193,4 @@
     </script>
 </body>
 </html>
+
