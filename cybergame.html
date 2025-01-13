@@ -22,7 +22,7 @@
             flex-direction: column;
             align-items: center;
             width: 100%;
-            max-width: 600px; /* Limit max width for large screens */
+            max-width: 600px;
         }
 
         #logo {
@@ -37,8 +37,8 @@
             margin-bottom: 20px;
             width: 100%;
             height: 100%;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* Responsive grid */
-            grid-template-rows: repeat(auto-fill, minmax(60px, 1fr)); /* Responsive grid */
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(60px, 1fr));
             justify-items: center;
         }
 
@@ -82,7 +82,7 @@
     </div>
 
     <script>
-        const baseSize = 8;  // Base grid size
+        const baseSize = 8;
         let gridSize = baseSize;
         let level = 1;
         let score = 0;
@@ -90,6 +90,7 @@
         const gameBoard = document.getElementById('game-board');
         const scoreElement = document.getElementById('score');
         const levelElement = document.getElementById('level');
+        let selectedBlock = null;
 
         function generateBoard() {
             gameBoard.innerHTML = '';
@@ -115,8 +116,6 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        let selectedBlock = null;
-
         function handleBlockClick(event) {
             const clickedBlock = event.target;
 
@@ -135,10 +134,8 @@
         function swapBlocks(block1, block2) {
             const tempX = block1.getAttribute('data-x');
             const tempY = block1.getAttribute('data-y');
-
             block1.setAttribute('data-x', block2.getAttribute('data-x'));
             block1.setAttribute('data-y', block2.getAttribute('data-y'));
-
             block2.setAttribute('data-x', tempX);
             block2.setAttribute('data-y', tempY);
 
@@ -146,12 +143,14 @@
             block1.className = block2.className;
             block2.className = tempClass;
 
-            checkMatches();
+            setTimeout(() => {
+                checkMatches();
+            }, 200); // Wait for the visual swap to complete
         }
 
         function checkMatches() {
-            const matchedBlocks = [];
-            
+            let matchedBlocks = [];
+
             for (let i = 0; i < gridSize; i++) {
                 for (let j = 0; j < gridSize - 2; j++) {
                     const currentBlock = getBlock(i, j);
@@ -179,8 +178,10 @@
             }
 
             if (matchedBlocks.length > 0) {
-                matchedBlocks.forEach(block => block.remove());
-                score += 10;
+                matchedBlocks.forEach(block => {
+                    block.remove();
+                    score += 10;
+                });
                 scoreElement.textContent = `Score: ${score}`;
                 updateBoard();
                 checkForLevelUp();
@@ -237,3 +238,4 @@
     </script>
 </body>
 </html>
+
