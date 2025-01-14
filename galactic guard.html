@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Hunter</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: black;
+            color: white;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+        }
+
+        #gameOver {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="score">Score: 0</div>
+    <div id="gameOver">Game Over<br>Press F5 to Restart</div>
+    <canvas id="gameCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const spaceship = {
+            x: canvas.width / 2 - 25,
+            y: canvas.height - 60,
+            width: 50,
+            height: 50,
+            speed: 10,
+        };
+
+        const stars = [];
+        const meteors = [];
+        let score = 0;
+        let gameOver = false;
+
+        function drawSpaceship() {
+            ctx.fillStyle = "blue";
+            ctx.fillRect(spaceship.x, spaceship.y, spaceship.width, spaceship.height);
+        }
+
+        function createObject(array, color, width, height) {
+            array.push({
+                x: Math.random() * (canvas.width - width),
+                y: 0,
+                width: width,
+                height: height,
+                color: color,
+                speed: Math.random() * 3 + 2,
+            });
+        }
+
+        function drawObjects(array) {
+            array.forEach(obj => {
+                ctx.fillStyle = obj.color;
+                ctx.fillRect(obj.x, obj.y, obj.width, obj.height);
+                obj.y += obj.speed;
+            });
+        }
+
+        function detectCollision(obj) {
+            return (
+                spaceship.x < obj.x + obj.width &&
+                spaceship.x + spaceship.width > obj.x &&
+                spaceship.y < obj.y + obj.height &&
+                spaceship.height + spaceship.y > obj.y
+            );
+        }
+
+        function update() {
+            if (gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            drawSpaceship();
+
+            if (Math.random() < 0.02) createObject(stars, "yellow", 20, 20);
+            if (Math.random() < 0.01) createObject(meteors, "red", 30, 30);
+
+            drawObjects(stars);
+            drawObjects(meteors);
+
+            stars.forEach((star, index) => {
+                if (detectCollision(star)) {
+                    score++;
+                    stars.splice(index, 1);
+                } else if (star.y > canvas.height) {
+                    stars.splice(index, 1);
+                }
+            });
+
+            meteors.forEach((meteor, index) => {
+                if (detectCollision(meteor)) {
+                    document.getElementById("gameOver").style.display = "block";
+                    gameOver = true;
+                } else if (meteor.y > canvas.height) {
+                    meteors.splice(index, 1);
+                }
+            });
+
+            document.getElementById("score").innerText = `Score: ${score}`;
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft" && spaceship.x > 0) {
+                spaceship.x -= spaceship.speed;
+            } else if (e.key === "ArrowRight" && spaceship.x + spaceship.width < canvas.width) {
+                spaceship.x += spaceship.speed;
+            }
+        });
+
+        update();
+    </script>
+</body>
+</html>
