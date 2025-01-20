@@ -12,36 +12,40 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('download.jpeg'); /* Background image */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background-color: #0d1117;
             color: #c9d1d9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
-            background: black; /* Solid black background */
-            text-align: center;
+            background-image: url('download.jpeg'); /* Replace with your uploaded image */
+            background-size: cover;
+            background-position: center;
             color: #ffffff;
-            padding: 2rem;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            padding: 2rem;
+            text-align: center;
+            width: 100%;
         }
 
         .container {
             max-width: 1200px;
             margin: 2rem auto;
-            padding: 1rem;
-            background: black; /* Solid black background */
-            border-radius: 8px;
+            padding: 0 1rem;
         }
 
         #aboutMe {
-            background: rgba(255, 255, 255, 0.1);
+            background-image: url('download.jpeg'); /* Replace with your uploaded image */
+            background-size: cover;
+            background-position: center;
             border: 1px solid #30363d;
             border-radius: 8px;
             padding: 1rem;
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+            width: 300px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -61,10 +65,11 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
+            flex-grow: 1;
         }
 
         .card {
-            background: black; /* Solid black background */
+            background: #161b22;
             border: 1px solid #30363d;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
@@ -120,9 +125,10 @@
         footer {
             text-align: center;
             padding: 1rem;
-            background: black; /* Solid black background */
+            background: #161b22;
             color: #8b949e;
             margin-top: 2rem;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -155,10 +161,8 @@
             </div>
         </div>
 
-        <!-- Sample Content Section -->
-        <div class="grid" id="sampleGrid">
-            <!-- Dynamic content will be inserted here -->
-        </div>
+        <!-- Grid Section -->
+        <div class="grid" id="sampleGrid"></div>
     </div>
 
     <footer>
@@ -167,13 +171,15 @@
 
     <script>
         const samples = [
-            {
-                title: "Phishing Attacks",
-                description: "Learn how to recognize and prevent phishing scams.",
-                image: "cover1.png",
-                link: "phishing.html"
-            },
-            // Additional card objects...
+            { title: "Phishing Attacks", description: "Learn how to recognize and prevent phishing scams.", image: "cover1.png", link: "phishing.html" },
+            { title: "Ransomware Defense", description: "Discover strategies to defend against ransomware.", image: "cover2.png", link: "ransomware.html" },
+            { title: "Ethical Hacking Basics", description: "An introduction to ethical hacking techniques.", image: "cover3.png", link: "ethical_hacking.html" },
+            { title: "Network Security Essentials", description: "Strengthen your network security knowledge.", image: "cover4.png", link: "network_security.html" },
+            { title: "Password Management Tips", description: "Learn best practices for password safety.", image: "cover5.png", link: "password_management.html" },
+            { title: "Data Privacy Laws", description: "Understand the laws surrounding data protection.", image: "cover6.png", link: "data_privacy.html" },
+            { title: "IoT Security Challenges", description: "Explore the security risks of IoT devices.", image: "cover7.png", link: "iot_security.html" },
+            { title: "Malware Analysis", description: "Dive deep into the world of malware analysis.", image: "cover8.png", link: "malware_analysis.html" },
+            { title: "Cryptography Fundamentals", description: "Understand the basics of cryptography.", image: "cover9.png", link: "cryptography.html" }
         ];
 
         const sampleGrid = document.getElementById('sampleGrid');
@@ -201,8 +207,3 @@
     </script>
 </body>
 </html>
-
-
-    
-
-
