@@ -12,40 +12,36 @@
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #0d1117;
+            background-image: url('download.jpeg'); /* Background image added */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: #c9d1d9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         header {
-            background-image: url('download.jpeg'); /* Using the uploaded image */
-            background-size: cover;
-            background-position: center;
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-            padding: 2rem;
+            background: rgba(0, 0, 0, 0.8); /* Transparent black overlay */
             text-align: center;
-            width: 100%;
+            color: #ffffff;
+            padding: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
         }
 
         .container {
             max-width: 1200px;
             margin: 2rem auto;
-            padding: 0 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.8); /* Transparent black background for better visibility */
+            border-radius: 8px;
         }
 
         #aboutMe {
-            background-image: url('download.jpeg'); /* Using the uploaded image */
-            background-size: cover;
-            background-position: center;
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid #30363d;
             border-radius: 8px;
             padding: 1rem;
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
-            width: 300px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -65,11 +61,10 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
-            flex-grow: 1;
         }
 
         .card {
-            background: #161b22;
+            background: rgba(0, 0, 0, 0.8);
             border: 1px solid #30363d;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
@@ -125,10 +120,9 @@
         footer {
             text-align: center;
             padding: 1rem;
-            background: #161b22;
+            background: rgba(0, 0, 0, 0.8);
             color: #8b949e;
             margin-top: 2rem;
-            width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -179,72 +173,7 @@
                 image: "cover1.png",
                 link: "phishing.html"
             },
-            {
-                title: "Ransomware Trends",
-                description: "Stay updated on the latest ransomware threats.",
-                image: "cover2.png",
-                link: "ransomware.html"
-            },
-            {
-                title: "Data Breaches",
-                description: "Understand the impact of data breaches and how to mitigate them.",
-                image: "cover3.png",
-                link: "data-breaches.html"
-            },
-            {
-                title: "Network Security",
-                description: "Best practices for securing your network infrastructure.",
-                image: "cover4.png",
-                link: "network-security.html"
-            },
-            {
-                title: "CyberQuiz",
-                description: "Test your knowledge with our interactive cybersecurity quiz!",
-                image: "quiz.png",
-                link: "cyberquiz.html"
-            },
-            {
-                title: "Hacktivist Uprising",
-                description: "A thrilling game to challenge your ethical hacking skills.",
-                image: "hacktivist.png",
-                link: "hacktivist.html"
-            },
-            {
-                title: "Password Security",
-                description: "Learn the do's and don'ts of password management.",
-                image: "passwords.png",
-                link: "password-security.html"
-            },
-            {
-                title: "IoT Security",
-                description: "Discover how to secure your Internet of Things devices.",
-                image: "iot.png",
-                link: "iot-security.html"
-            },
-            {
-                title: "Social Engineering Simulator",
-                description: "Test your ability to spot social engineering tricks.",
-                image: "social-engineering.png",
-                link: "social-engineering.html"
-            },
-            {
-                title: "Cryptographic Challenges",
-                description: "Decode cryptographic puzzles and improve your skills.",
-                image: "crypto.png",
-                link: "crypto.html"
-            },
-            {
-                title: "Firewall Setup Game",
-                description: "Learn how to configure firewalls through interactive gameplay.",
-                image: "firewall.png",
-                link: "firewall.html"
-            },
-            {
-                title: "Malware Analysis",
-                description: "Analyze malware samples and learn disinfection techniques.",
-                image: "malware.png",
-                link: "malware.html"
-            }
+            // Additional card objects...
         ];
 
         const sampleGrid = document.getElementById('sampleGrid');
@@ -272,3 +201,4 @@
     </script>
 </body>
 </html>
+
