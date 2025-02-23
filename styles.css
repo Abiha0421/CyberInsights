@@ -1,0 +1,260 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #0a0a1a, #1a1a2e, #8a2be2, #00bfff); /* Technology blue and purple gradient */
+    color: #ffffff; /* White text for better contrast */
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: #8a2be2; /* Purple */
+}
+
+a {
+    color: #8a2be2; /* Purple */
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00bfff; /* Bright blue */
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, rgba(10, 10, 26, 0.9), rgba(26, 26, 46, 0.9));
+    padding: 2rem 0;
+    text-align: center;
+    border-bottom: 2px solid #8a2be2; /* Purple */
+}
+
+header h1 {
+    font-size: 3rem;
+    margin: 0;
+}
+
+header p {
+    font-size: 1.2rem;
+    color: #8b949e;
+}
+
+/* Hero Section */
+.hero {
+    background: url('cyber-hero.jpg') no-repeat center center/cover;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin: 1rem 0;
+}
+
+.hero button {
+    background: linear-gradient(135deg, #8a2be2, #00bfff); /* Purple to bright blue gradient */
+    color: #fff;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border-radius: 5px; /* Optional: Add rounded corners */
+}
+
+.hero button:hover {
+    background: linear-gradient(135deg, #00bfff, #8a2be2); /* Reverse gradient on hover */
+}
+
+/* Sections */
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.section {
+    margin: 4rem 0;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    border-radius: 10px;
+    color: #ffffff; /* White text for contrast */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #ffffff; /* White heading */
+}
+
+/* About Me Section */
+#aboutMe {
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    border-radius: 10px;
+    padding: 2rem;
+    color: #ffffff; /* White text for contrast */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+#aboutMe:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2); /* Purple */
+}
+
+#aboutMe h2 {
+    margin-top: 0;
+    color: #ffffff; /* White heading */
+}
+
+/* Contents Section */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent overlay */
+    border-radius: 10px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    justify-content: space-between; /* Push button to the bottom */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2); /* Purple */
+}
+
+.card i {
+    font-size: 2rem;
+    color: #ffffff; /* White icon */
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #ffffff; /* White heading */
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: #8b949e;
+    margin-bottom: 1.5rem; /* Add space between text and button */
+}
+
+.card button {
+    background: linear-gradient(135deg, #8a2be2, #00bfff); /* Purple to bright blue gradient */
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    width: 100%; /* Make button full width */
+    transition: background 0.3s ease;
+    border-radius: 5px; /* Optional: Add rounded corners */
+}
+
+.card button:hover {
+    background: linear-gradient(135deg, #00bfff, #8a2be2); /* Reverse gradient on hover */
+}
+
+/* Projects Section */
+.projects {
+    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black overlay */
+    border-radius: 10px;
+    padding: 2rem;
+    color: #ffffff; /* White text for contrast */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 4rem 0;
+}
+
+.projects h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #ffffff; /* White heading */
+}
+
+.projects p {
+    font-size: 1rem;
+    color: #8b949e;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(26, 26, 46, 0.9); /* Semi-transparent overlay */
+    color: #8b949e;
+    margin-top: 4rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Social Links */
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links a {
+    margin: 0 0.5rem;
+    font-size: 1.2rem;
+    color: #8a2be2; /* Purple */
+}
+
+.social-links a:hover {
+    color: #00bfff; /* Bright blue */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
