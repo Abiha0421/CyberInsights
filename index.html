@@ -6,132 +6,228 @@
     <title>Cyber Insights</title>
     <a rel="me" href="https://mastodon.social/@Abiha_Fatima">Mastodon</a>
     <meta name="fediverse:creator" content="@Abiha_Fatima@mastodon.social">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* General Styles */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-color: #0a0a1a; /* Deep blue background */
+            color: #e0e0e0;
+            line-height: 1.6;
         }
 
+        h1, h2, h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #8a2be2; /* Purple */
+        }
+
+        a {
+            color: #8a2be2; /* Purple */
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #00bfff; /* Bright blue */
+        }
+
+        /* Header */
         header {
-            background-color: #161b22;
-            color: #58a6ff;
-            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+            padding: 2rem 0;
             text-align: center;
-            width: 100%;
+            border-bottom: 2px solid #8a2be2; /* Purple */
         }
 
+        header h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #8b949e;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('cyber-hero.jpg') no-repeat center center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .hero button {
+            background: #8a2be2; /* Purple */
+            color: #fff;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .hero button:hover {
+            background: #00bfff; /* Bright blue */
+        }
+
+        /* Sections */
         .container {
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
 
+        .section {
+            margin: 4rem 0;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* About Me Section */
         #aboutMe {
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 1rem;
-            color: #c9d1d9;
-            width: 300px;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         #aboutMe:hover {
             transform: translateY(-10px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2); /* Purple */
         }
 
-        .about-content {
-            display: none;
-            margin-top: 1rem;
-            font-size: 0.9rem;
+        #aboutMe h2 {
+            margin-top: 0;
         }
 
+        /* Contents Section */
         .grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5rem;
-            flex-grow: 1;
         }
 
         .card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 10px 20px rgba(138, 43, 226, 0.2); /* Purple */
         }
 
-        .card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+        .card i {
+            font-size: 2rem;
+            color: #8a2be2; /* Purple */
+            margin-bottom: 1rem;
         }
 
-        .card-content {
-            padding: 1rem;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
+        .card h3 {
+            font-size: 1.5rem;
             margin: 0;
-            color: #58a6ff;
         }
 
-        .card-description {
+        .card p {
             font-size: 0.9rem;
-            margin: 0.5rem 0;
             color: #8b949e;
         }
 
         .card button {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            margin-top: 0.5rem;
-            background-color: #58a6ff;
-            color: #0d1117;
+            background: #8a2be2; /* Purple */
+            color: #fff;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 0.5rem 1rem;
             font-size: 0.9rem;
-            font-weight: 700;
-            transition: background-color 0.3s ease;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.3s ease;
         }
 
         .card button:hover {
-            background-color: #1f6feb;
+            background: #00bfff; /* Bright blue */
         }
 
+        /* Footer */
         footer {
             text-align: center;
-            padding: 1rem;
-            background: #161b22;
+            padding: 2rem;
+            background: #1a1a2e;
             color: #8b949e;
-            margin-top: 2rem;
-            width: 100%;
+            margin-top: 4rem;
         }
 
+        footer p {
+            margin: 0;
+        }
+
+        /* Social Links */
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            margin: 0 0.5rem;
+            font-size: 1.2rem;
+            color: #8a2be2; /* Purple */
+        }
+
+        .social-links a:hover {
+            color: #00bfff; /* Bright blue */
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
+            .hero h2 {
+                font-size: 2rem;
             }
-        }
 
-        @media (max-width: 480px) {
+            .hero p {
+                font-size: 1rem;
+            }
+
             .grid {
                 grid-template-columns: 1fr;
             }
@@ -144,125 +240,141 @@
         <p>Explore the latest trends and insights in cybersecurity.</p>
     </header>
 
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h2>Secure Your Digital World</h2>
+            <p>Stay ahead of cyber threats with cutting-edge insights and tools.</p>
+            <button onclick="window.location.href='#aboutMe'">Learn More</button>
+        </div>
+    </div>
+
     <div class="container">
         <!-- About Me Section -->
-        <div id="aboutMe">
+        <section id="aboutMe" class="section">
             <h2>About Me</h2>
-            <div class="about-content">
-                <p><strong>Name:</strong> Abiha</p>
-                <p><strong>About:</strong> Proficient in programming, a CS student at Virtual University (VU) of Pakistan, and a cybersecurity enthusiast.</p>
-                <p><strong>Contact:</strong> For bug reports, email <a href="mailto:bc230404890syedaabihafatima@gmail.com" style="color: #58a6ff;">bc230404890syedaabihafatima@gmail.com</a></p>
-            </div>
-        </div>
+            <p><strong>About:</strong> Hi! I am Abiha I'm passionate cybersecurity enthusiast, dedicated to unraveling the complexities of ethical hacking, penetration testing, and digital defense. With a deep curiosity for emerging cyber threats, I strive to empower individuals and businesses with the knowledge they need to stay secure in an ever-evolving digital world.
 
-        <!-- Sample Content Section -->
-        <div class="grid" id="sampleGrid">
-            <!-- Dynamic content will be inserted here -->
-        </div>
+Beyond cybersecurity, I explore AI security, ethical hacking, and future tech innovations. Whether it's developing cybersecurity tools, conducting research, or sharing insights through CyberInsights, my goal is to bridge the gap between security awareness and real-world applications.
+
+Join me on this journey to strengthen digital security, one step at a time. 🚀.</p>
+            <p><strong>Contact:</strong> For bug reports, email <a href="mailto:bc230404890syedaabihafatima@gmail.com">bc230404890syedaabihafatima@gmail.com</a></p>
+            <div class="social-links">
+                <a href="https://github.com/Abiha0421" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/syeda-abiha-fatima-102b69342/" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </section>
+
+        <!-- Contents Section -->
+        <section class="section">
+            <h2>Contents</h2>
+            <div class="grid">
+                <!-- Phishing Attacks -->
+                <div class="card">
+                    <i class="fas fa-fish"></i>
+                    <h3>Phishing Attacks</h3>
+                    <p>Learn how to recognize and prevent phishing scams.</p>
+                    <button onclick="window.location.href='phishing.html'">Learn More</button>
+                </div>
+
+                <!-- Ransomware Trends -->
+                <div class="card">
+                    <i class="fas fa-lock"></i>
+                    <h3>Ransomware Trends</h3>
+                    <p>Stay updated on the latest ransomware threats.</p>
+                    <button onclick="window.location.href='ransomware.html'">Learn More</button>
+                </div>
+
+                <!-- Data Breaches -->
+                <div class="card">
+                    <i class="fas fa-database"></i>
+                    <h3>Data Breaches</h3>
+                    <p>Understand the impact of data breaches and how to mitigate them.</p>
+                    <button onclick="window.location.href='data-breaches.html'">Learn More</button>
+                </div>
+
+                <!-- Network Security -->
+                <div class="card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Network Security</h3>
+                    <p>Best practices for securing your network infrastructure.</p>
+                    <button onclick="window.location.href='network-security.html'">Learn More</button>
+                </div>
+
+                <!-- CyberQuiz -->
+                <div class="card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>CyberQuiz</h3>
+                    <p>Test your knowledge with our interactive cybersecurity quiz!</p>
+                    <button onclick="window.location.href='cyberquiz.html'">Learn More</button>
+                </div>
+
+                <!-- Hacktivist Uprising -->
+                <div class="card">
+                    <i class="fas fa-user-secret"></i>
+                    <h3>Hacktivist Uprising</h3>
+                    <p>A thrilling game to challenge your ethical hacking skills.</p>
+                    <button onclick="window.location.href='hacktivist.html'">Learn More</button>
+                </div>
+
+                <!-- Password Security -->
+                <div class="card">
+                    <i class="fas fa-key"></i>
+                    <h3>Password Security</h3>
+                    <p>Learn the do's and don'ts of password management.</p>
+                    <button onclick="window.location.href='password-security.html'">Learn More</button>
+                </div>
+
+                <!-- IoT Security -->
+                <div class="card">
+                    <i class="fas fa-wifi"></i>
+                    <h3>IoT Security</h3>
+                    <p>Discover how to secure your Internet of Things devices.</p>
+                    <button onclick="window.location.href='iot-security.html'">Learn More</button>
+                </div>
+
+                <!-- Social Engineering Simulator -->
+                <div class="card">
+                    <i class="fas fa-users"></i>
+                    <h3>Social Engineering Simulator</h3>
+                    <p>Test your ability to spot social engineering tricks.</p>
+                    <button onclick="window.location.href='social-engineering.html'">Learn More</button>
+                </div>
+
+                <!-- Cryptographic Challenges -->
+                <div class="card">
+                    <i class="fas fa-lock-open"></i>
+                    <h3>Cryptographic Challenges</h3>
+                    <p>Decode cryptographic puzzles and improve your skills.</p>
+                    <button onclick="window.location.href='crypto.html'">Learn More</button>
+                </div>
+
+                <!-- Firewall Setup Game -->
+                <div class="card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Firewall Setup Game</h3>
+                    <p>Learn how to configure firewalls through interactive gameplay.</p>
+                    <button onclick="window.location.href='firewall.html'">Learn More</button>
+                </div>
+
+                <!-- Malware Analysis -->
+                <div class="card">
+                    <i class="fas fa-bug"></i>
+                    <h3>Malware Analysis</h3>
+                    <p>Analyze malware samples and learn disinfection techniques.</p>
+                    <button onclick="window.location.href='malware.html'">Learn More</button>
+                </div>
+            </div>
+        </section>
+              <!-- Projects Section -->
+                 <section class="projects">
+        <h2>Projects</h2>
+        <p>Soon</p>
+    </section>
     </div>
 
     <footer>
         <p>&copy; 2025 Cyber Insights. All rights reserved.</p>
     </footer>
-
-    <script>
-        const samples = [
-            {
-                title: "Phishing Attacks",
-                description: "Learn how to recognize and prevent phishing scams.",
-                image: "cover1.png",
-                link: "phishing.html"
-            },
-            {
-                title: "Ransomware Trends",
-                description: "Stay updated on the latest ransomware threats.",
-                image: "cover2.png",
-                link: "ransomware.html"
-            },
-            {
-                title: "Data Breaches",
-                description: "Understand the impact of data breaches and how to mitigate them.",
-                image: "cover3.png",
-                link: "data-breaches.html"
-            },
-            {
-                title: "Network Security",
-                description: "Best practices for securing your network infrastructure.",
-                image: "cover4.png",
-                link: "network-security.html"
-            },
-            {
-                title: "CyberQuiz",
-                description: "Test your knowledge with our interactive cybersecurity quiz!",
-                image: "quiz.png",
-                link: "cyberquiz.html"
-            },
-            {
-                title: "Hacktivist Uprising",
-                description: "A thrilling game to challenge your ethical hacking skills.",
-                image: "hacktivist.png",
-                link: "hacktivist.html"
-            },
-            {
-                title: "Password Security",
-                description: "Learn the do's and don'ts of password management.",
-                image: "passwords.png",
-                link: "password-security.html"
-            },
-            {
-                title: "IoT Security",
-                description: "Discover how to secure your Internet of Things devices.",
-                image: "iot.png",
-                link: "iot-security.html"
-            },
-            {
-                title: "Social Engineering Simulator",
-                description: "Test your ability to spot social engineering tricks.",
-                image: "social-engineering.png",
-                link: "social-engineering.html"
-            },
-            {
-                title: "Cryptographic Challenges",
-                description: "Decode cryptographic puzzles and improve your skills.",
-                image: "crypto.png",
-                link: "crypto.html"
-            },
-            {
-                title: "Firewall Setup Game",
-                description: "Learn how to configure firewalls through interactive gameplay.",
-                image: "firewall.png",
-                link: "firewall.html"
-            },
-            {
-                title: "Malware Analysis",
-                description: "Analyze malware samples and learn disinfection techniques.",
-                image: "malware.png",
-                link: "malware.html"
-            }
-        ];
-
-        const sampleGrid = document.getElementById('sampleGrid');
-
-        samples.forEach(sample => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <img src="${sample.image}" alt="${sample.title}">
-                <div class="card-content">
-                    <h2 class="card-title">${sample.title}</h2>
-                    <p class="card-description">${sample.description}</p>
-                    <button onclick="window.location.href='${sample.link}'">Learn More</button>
-                </div>
-            `;
-            sampleGrid.appendChild(card);
-        });
-
-        const aboutMe = document.getElementById('aboutMe');
-        const aboutContent = document.querySelector('.about-content');
-
-        aboutMe.addEventListener('click', () => {
-            aboutContent.style.display = aboutContent.style.display === 'none' ? 'block' : 'none';
-        });
-    </script>
 </body>
 </html>
