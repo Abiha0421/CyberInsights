@@ -1,7 +1,6 @@
 /* Body Background */
 body {
     background-color: #000; /* Fallback color */
-    background-image: url('cyber-background.jpeg'); /* Use the downloaded image */
     background-size: cover;
     background-position: center;
     background-attachment: fixed; /* Optional: Makes the background fixed while scrolling */
