@@ -1,5 +1,6 @@
 /* Body Background */
 body {
+    background-image: url('cyber-background.jpeg');
     background-color: #000; /* Fallback color */
     background-size: cover;
     background-position: center;
@@ -13,7 +14,6 @@ body {
 
 /* Header */
 header {
-    background-image: url('Cyber.jpg'); /* Use your original header image */
     background-size: cover;
     background-position: center;
     color: white;
